@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 from typing import List
 from pydantic import BaseModel
-from datalayer import get_db
-from datalayer.repository import TestItemRepository
+from src.datalayer import get_db
+from src.datalayer.repository import TestItemRepository
 
 router = APIRouter(prefix="/stimuli", tags=["Public Stimuli"])
 

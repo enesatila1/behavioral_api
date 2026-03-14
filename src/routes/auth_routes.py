@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
 from firebase_admin import auth as firebase_auth
-from utils import create_access_token
+from src.utils import create_access_token
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 

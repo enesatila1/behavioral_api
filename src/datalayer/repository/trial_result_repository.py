@@ -1,5 +1,6 @@
 from typing import Optional, List
 
+from firebase_admin.firestore_async import AsyncClient
 from ..model import TrialResult
 from ._firestore_base_repository import FirestoreBaseRepository
 

@@ -3,8 +3,8 @@ from io import BytesIO
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
 
-from datalayer.repository import TrialResultRepository, ParticipantRepository
-from datalayer.model.db import TrialResult
+from src.datalayer.repository import TrialResultRepository, ParticipantRepository
+from src.datalayer.model.db import TrialResult
 
 if TYPE_CHECKING:
     from firebase_admin.firestore_async import AsyncClient

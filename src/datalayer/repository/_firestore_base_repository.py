@@ -1,6 +1,7 @@
 from typing import Generic, TypeVar, List, Optional, Union, Type
 from contextlib import asynccontextmanager
 from firebase_admin import firestore_async
+from firebase_admin.firestore_async import AsyncClient
 
 from ._repository_abc import AsyncRepositoryABC
 

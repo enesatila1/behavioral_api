@@ -1,6 +1,6 @@
 from fastapi import HTTPException, Header, status
-from config import app_config
-from utils import verify_access_token, get_email_from_token
+from src.config import app_config
+from src.utils import verify_access_token, get_email_from_token
 
 
 async def verify_jwt_token(authorization: str = Header(...)) -> dict:

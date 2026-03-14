@@ -1,7 +1,7 @@
 from typing import List, Dict, Any, TYPE_CHECKING
 
-from datalayer.model import Participant, TrialResult
-from datalayer.repository import ParticipantRepository, TrialResultRepository
+from src.datalayer.model import Participant, TrialResult
+from src.datalayer.repository import ParticipantRepository, TrialResultRepository
 
 if TYPE_CHECKING:
     from firebase_admin.firestore_async import AsyncClient

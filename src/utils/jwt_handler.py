@@ -1,6 +1,6 @@
 import jwt
 from datetime import datetime, timedelta
-from config import app_config
+from src.config import app_config
 
 SECRET_KEY = "your-secret-key-change-this-in-production"  # Should be in config
 ALGORITHM = "HS256"

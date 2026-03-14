@@ -1,12 +1,13 @@
 from typing import List, Optional
-from datalayer.model.db.test_item import TestItem
+from firebase_admin.firestore_async import AsyncClient
+from ..model.db.test_item import TestItem
 from ._firestore_base_repository import FirestoreBaseRepository
 
 
 class TestItemRepository(FirestoreBaseRepository[TestItem]):
     """Repository for test items/stimuli"""
 
-    def __init__(self, db):
+    def __init__(self, db: AsyncClient):
         super().__init__(db, TestItem, "test_items")
 
     async def find_by_test_type(self, test_type: str) -> List[TestItem]:

@@ -2,7 +2,7 @@ import firebase_admin
 from firebase_admin import credentials, firestore_async
 from typing import AsyncGenerator
 
-from config import app_config
+from src.config import app_config
 
 # Initialize Firebase Admin SDK from environment variables
 try:
