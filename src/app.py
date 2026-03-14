@@ -3,7 +3,7 @@ import logging
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import auth_routes, results_routes, admin_routes
+from routes import auth_routes, results_routes, admin_routes, stimulus_routes, public_routes
 
 app = FastAPI(
     title="Behavioral Tests API",
@@ -33,9 +33,11 @@ app.add_middleware(
 )
 
 # Include routers
+app.include_router(public_routes.router)
 app.include_router(auth_routes.router)
 app.include_router(results_routes.router)
 app.include_router(admin_routes.router)
+app.include_router(stimulus_routes.router)
 
 if __name__ == "__main__":
     print(f"🚀 Server başlatılıyor...")

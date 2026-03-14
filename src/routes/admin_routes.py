@@ -1,13 +1,16 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
-from typing import List, Dict, Any
+from typing import List, Dict, Any, TYPE_CHECKING
 from datetime import datetime
 
 from datalayer.database import get_db
 from datalayer.model import Participant
 from middleware import verify_jwt_token
 from services import ResultsService, ExportService
+
+if TYPE_CHECKING:
+    from firebase_admin.firestore_async import AsyncClient
 
 router = APIRouter(prefix="/admin", tags=["Admin"])
 
@@ -45,7 +48,7 @@ class ParticipantDetailsResponse(BaseModel):
 
 @router.get("/participants", response_model=List[ParticipantInfo])
 async def list_participants(
-    db: AsyncClient = Depends(get_db),
+    db: "AsyncClient" = Depends(get_db),
     token: dict = Depends(verify_jwt_token),
 ) -> List[ParticipantInfo]:
     """
@@ -86,7 +89,7 @@ async def list_participants(
 @router.get("/participants/{participant_id}", response_model=ParticipantDetailsResponse)
 async def get_participant_results(
     participant_id: str,
-    db: AsyncClient = Depends(get_db),
+    db: "AsyncClient" = Depends(get_db),
     token: dict = Depends(verify_jwt_token),
 ) -> ParticipantDetailsResponse:
     """
@@ -147,7 +150,7 @@ async def get_participant_results(
 
 @router.get("/export")
 async def export_all_results(
-    db: AsyncClient = Depends(get_db),
+    db: "AsyncClient" = Depends(get_db),
     token: dict = Depends(verify_jwt_token),
 ):
     """
@@ -176,7 +179,7 @@ async def export_all_results(
 @router.get("/export/{participant_id}")
 async def export_participant_results(
     participant_id: str,
-    db: AsyncClient = Depends(get_db),
+    db: "AsyncClient" = Depends(get_db),
     token: dict = Depends(verify_jwt_token),
 ):
     """
@@ -214,7 +217,7 @@ async def export_participant_results(
 
 @router.get("/stats")
 async def get_statistics(
-    db: AsyncClient = Depends(get_db),
+    db: "AsyncClient" = Depends(get_db),
     token: dict = Depends(verify_jwt_token),
 ) -> Dict[str, Any]:
     """

@@ -1,15 +1,19 @@
-from typing import List, Optional
+from typing import List, Optional, TYPE_CHECKING
 from io import BytesIO
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment
 
-from datalayer.repository import TrialResultRepository
+from datalayer.repository import TrialResultRepository, ParticipantRepository
+from datalayer.model.db import TrialResult
+
+if TYPE_CHECKING:
+    from firebase_admin.firestore_async import AsyncClient
 
 
 class ExportService:
     """Service for exporting test results to Excel format"""
 
-    def __init__(self, db: AsyncClient):
+    def __init__(self, db: "AsyncClient"):
         self.db = db
         self.participant_repo = ParticipantRepository(db)
         self.trial_repo = TrialResultRepository(db)

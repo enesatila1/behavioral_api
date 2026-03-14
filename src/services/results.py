@@ -1,13 +1,16 @@
-from typing import List, Dict, Any
+from typing import List, Dict, Any, TYPE_CHECKING
 
 from datalayer.model import Participant, TrialResult
 from datalayer.repository import ParticipantRepository, TrialResultRepository
+
+if TYPE_CHECKING:
+    from firebase_admin.firestore_async import AsyncClient
 
 
 class ResultsService:
     """Service for handling test results submission and storage"""
 
-    def __init__(self, db: AsyncClient):
+    def __init__(self, db: "AsyncClient"):
         self.db = db
         self.participant_repo = ParticipantRepository(db)
         self.trial_repo = TrialResultRepository(db)

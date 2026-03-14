@@ -1,9 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel
-from typing import List, Dict, Any, AsyncGenerator
+from typing import List, Dict, Any, AsyncGenerator, TYPE_CHECKING
 
 from datalayer.database import get_db
 from services import ResultsService
+
+if TYPE_CHECKING:
+    from firebase_admin.firestore_async import AsyncClient
 
 router = APIRouter(prefix="/results", tags=["Results"])
 
@@ -44,7 +47,7 @@ class ResultsSubmissionResponse(BaseModel):
 @router.post("/spr", response_model=ResultsSubmissionResponse)
 async def submit_spr_results(
     request: ResultsSubmissionRequest,
-    db: AsyncClient = Depends(get_db),
+    db: "AsyncClient" = Depends(get_db),
 ) -> ResultsSubmissionResponse:
     """
     Submit Self-Paced Reading (SPR) test results.
@@ -94,7 +97,7 @@ async def submit_spr_results(
 @router.post("/gj", response_model=ResultsSubmissionResponse)
 async def submit_gj_results(
     request: ResultsSubmissionRequest,
-    db: AsyncClient = Depends(get_db),
+    db: "AsyncClient" = Depends(get_db),
 ) -> ResultsSubmissionResponse:
     """
     Submit Grammatical Judgment (GJ) test results.
