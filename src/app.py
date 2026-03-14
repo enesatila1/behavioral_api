@@ -18,7 +18,7 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
-# Add CORS middleware - allow frontend at localhost:3000
+# Add CORS middleware - allow frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -26,6 +26,10 @@ app.add_middleware(
         "http://localhost:3001",
         "http://127.0.0.1:3000",
         "http://127.0.0.1:3001",
+        "http://45.88.137.131:3000",  # VDS production
+        "http://45.88.137.131:3001",  # VDS production
+        "https://45.88.137.131:3000",  # VDS with HTTPS
+        "https://45.88.137.131:3001",  # VDS with HTTPS
     ],
     allow_credentials=True,
     allow_methods=["*"],

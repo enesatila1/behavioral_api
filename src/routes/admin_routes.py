@@ -1,8 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.responses import FileResponse
+from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from typing import List, Dict, Any, TYPE_CHECKING
 from datetime import datetime
+from io import BytesIO
 
 from src.datalayer.database import get_db
 from src.datalayer.model import Participant
@@ -161,10 +162,10 @@ async def export_all_results(
         service = ExportService(db)
         excel_bytes = await service.export_to_excel()
 
-        return FileResponse(
-            content=excel_bytes,
+        return StreamingResponse(
+            iter([excel_bytes]),
             media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            filename="all_results.xlsx",
+            headers={"Content-Disposition": "attachment; filename=all_results.xlsx"},
         )
     except HTTPException:
         raise
@@ -200,10 +201,10 @@ async def export_participant_results(
 
         filename = f"{participant.name}_results.xlsx".replace(" ", "_")
 
-        return FileResponse(
-            content=excel_bytes,
+        return StreamingResponse(
+            iter([excel_bytes]),
             media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-            filename=filename,
+            headers={"Content-Disposition": f"attachment; filename={filename}"},
         )
     except HTTPException:
         raise
