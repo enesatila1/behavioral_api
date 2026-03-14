@@ -3,7 +3,7 @@ import logging
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import auth_routes, results_routes, admin_routes, stimulus_routes, public_routes
+from src.routes import auth_routes, results_routes, admin_routes, stimulus_routes, public_routes
 
 app = FastAPI(
     title="Behavioral Tests API",
